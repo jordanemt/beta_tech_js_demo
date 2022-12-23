@@ -8,9 +8,28 @@ datasource db {
 }
 
 model Person {
-  id       Int     @id @default(autoincrement())
-  card     Int     @unique
-  name     String? @db.VarChar(25)
-  lastName String? @db.VarChar(25)
-  email    String  @unique @db.VarChar(50)
+  id       Int               @id @default(autoincrement())
+  card     Int               @unique
+  name     String?           @db.VarChar(25)
+  lastName String?           @db.VarChar(25)
+  email    String            @unique @db.VarChar(50)
+  Laptops  PersonHasLaptop[]
+}
+
+model Laptop {
+  id      Int               @id @default(autoincrement())
+  serial  String?           @unique @db.VarChar(4)
+  Persons PersonHasLaptop[]
+}
+
+model PersonHasLaptop {
+  id           Int       @id @default(autoincrement())
+  laptopId     Int
+  personId     Int
+  assignedAt   DateTime? @default(now())
+  unassignedAt DateTime?
+  laptop       Laptop    @relation(fields: [laptopId], references: [id])
+  person       Person    @relation(fields: [personId], references: [id])
+
+  @@unique([laptopId, personId], name: "laptop_person_unique")
 }

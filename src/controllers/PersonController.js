@@ -29,6 +29,21 @@ const remove = async (req, res) => {
     res.send(data);
 }
 
+const getAllLaptops = async (req, res) => {
+    const data = await PersonService.getAllLaptops(parseInt(req.params.id));
+    res.send(data);
+}
+
+const assignLaptop = async (req, res) => {
+    const data = await PersonService.assignLaptop(parseInt(req.params.id), parseInt(req.body.laptopId));
+    res.send(data);
+}
+
+const unassignLaptop = async (req, res) => {
+    const data = await PersonService.unassignLaptop(parseInt(req.params.id), parseInt(req.body.laptopId));
+    res.send(data);
+}
+
 export default {
     ping,
     getAll,
@@ -36,4 +51,7 @@ export default {
     create,
     update,
     remove,
+    getAllLaptops,
+    assignLaptop,
+    unassignLaptop,
 };

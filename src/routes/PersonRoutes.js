@@ -181,4 +181,108 @@ router.put('/:id', LoginController.verifyToken, PersonController.update);
  */
 router.delete('/:id', LoginController.verifyToken, PersonController.remove);
 
+/**
+ * @swagger
+ * /api/persons/{id}/getAllLaptops/:
+ *  get:
+ *   summary: Returns the list of all the laptops
+ *   security:
+ *    - bearerAuth: []
+ *   tags: [Person]
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      required: true
+ *      description: The person id
+ *      schema:
+ *       type: integer
+ *   responses:
+ *    200:
+ *     description: The list of the laptops
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: array
+ *        $ref: '#/components/schemas/Laptop'
+ */
+router.get('/:id/getAllLaptops/', LoginController.verifyToken, PersonController.getAllLaptops);
+
+/**
+ * @swagger
+ * /api/persons/{id}/assignLaptop/:
+ *  post:
+ *   summary: Return the laptop assigned to the person
+ *   security:
+ *    - bearerAuth: []
+ *   tags: [Person]
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      required: true
+ *      description: The person id
+ *      schema:
+ *       type: integer
+ *   requestBody:
+ *    required: true
+ *    content:
+ *     application/json:
+ *      schema:
+ *       type: object 
+ *       parameters:
+ *        laptopId:
+ *         type: integer
+ *         required: true
+ *         description: The laptop id
+ *       example:
+ *        laptopId: 1
+ *   responses:
+ *    200:
+ *     description: The laptop assigned to the person
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        $ref: '#/components/schemas/Laptop'
+ */
+router.post('/:id/assignLaptop', LoginController.verifyToken, PersonController.assignLaptop);
+
+/**
+ * @swagger
+ * /api/persons/{id}/unassignLaptop/:
+ *  post:
+ *   summary: Return the laptop unassigned to the person
+ *   security:
+ *    - bearerAuth: []
+ *   tags: [Person]
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      required: true
+ *      description: The person id
+ *      schema:
+ *       type: integer
+ *   requestBody:
+ *    required: true
+ *    content:
+ *     application/json:
+ *      schema:
+ *       type: object 
+ *       parameters:
+ *        laptopId:
+ *         type: integer
+ *         required: true
+ *         description: The laptop id
+ *       example:
+ *        laptopId: 1
+ *   responses:
+ *    200:
+ *     description: The laptop unassigned to the person
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        $ref: '#/components/schemas/Laptop'
+ */
+router.post('/:id/unassignLaptop', LoginController.verifyToken, PersonController.unassignLaptop);
+
 export default router;

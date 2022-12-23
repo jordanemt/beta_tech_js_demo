@@ -55,6 +55,50 @@ const remove = async (id) => {
     return data;
 }
 
+const getAllLaptops = async (personId) => {
+    const data = await prisma.personHasLaptop.findMany({
+        where: {
+            AND: {
+                personId: personId,
+                unassignedAt: null,
+            },
+        },
+        include: {
+            laptop: true,
+        },
+    });
+    await prisma.$disconnect();
+    return data;
+}
+
+const assignLaptop = async (personId, laptopId) => {
+    const data = await prisma.personHasLaptop.create({
+        data: {
+            personId: personId,
+            laptopId: laptopId,
+        },
+    });
+
+    await prisma.$disconnect();
+    return data;
+}
+
+const unassignLaptop = async (personId, laptopId) => {
+    const data = await prisma.personHasLaptop.update({
+        where: {
+            laptop_person_unique: {
+                laptopId: laptopId,
+                personId: personId,
+            },
+        },
+        data: {
+            unassignedAt: new Date(),
+        },
+    });
+
+    await prisma.$disconnect();
+    return data;
+}
 
 export default {
     getAll,
@@ -62,4 +106,7 @@ export default {
     create,
     update,
     remove,
+    getAllLaptops,
+    assignLaptop,
+    unassignLaptop,
 };
