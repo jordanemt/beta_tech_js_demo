@@ -1,0 +1,3 @@
+[submodule "pg_beta_tech_docker"]
+	path = pg_beta_tech_docker
+	url = https://github.com/Beta-Tech-Costa-Rica/BetaTest.git
