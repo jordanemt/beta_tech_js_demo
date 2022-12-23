@@ -8,8 +8,12 @@ DATABASE_URL="postgresql://esalas:0ewj0Ra6zYWe@localhost:5432/postgres?schema=pu
 PORT=3000
 SECRET_KEY=DREotN4U4VrZfp
 ```
-Run ```npm install```.
+Run ```npm install```
 
-Migrate the database ```npx prisma migrate dev --name init```.
+Migrate the database ```npx prisma migrate dev --name init```
 
-Up the server with (nodemon) ```npm start```.
+Up the server with (nodemon) ```npm start```
+
+Test the API with the swagger http://localhost:3000/api-docs
+
+For login you can use any credentials
